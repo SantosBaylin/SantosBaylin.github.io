@@ -1269,4 +1269,34 @@ const PRODUCTOS_DB = [
         tallas: ["S", "M", "L"],
         img: "SHTS/SHTS-S04.jpeg"
     },
+    {
+        id: 128,
+        nombre: "Vestido Tejido",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 48.00,
+        tallas: ["S", "M", "L"],
+        img: "VT/VT-V01.jpeg"
+    },
+    {
+        id: 129,
+        nombre: "Palazo",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 28.00,
+        tallas: ["S", "M", "L", "XL"],
+        img: "PLM/PLZ-P04.jpeg"
+    },
+    {
+        id: 130,
+        nombre: "Chompa",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 20.00,
+        tallas: ["S", "M", "L"],
+        img: "PLM/CHP-P05.jpeg"
+    },
 ];
