@@ -1199,4 +1199,74 @@ const PRODUCTOS_DB = [
         tallas: ["S", "M", "L", "XL"],
         img: "CJ/CJ-C05.jpeg"
     },
+    {
+        id: 121,
+        nombre: "Polo Versace SNOOPY",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 20.00,
+        tallas: ["S", "M", "L"],
+        img: "PLM/SPY-P01.jpeg"
+    },
+    {
+        id: 122,
+        nombre: "Polo Versace Nirvana",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 20.00,
+        tallas: ["S", "M", "L"],
+        img: "PLM/NIR-P03.jpeg"
+    },
+    {
+        id: 123,
+        nombre: "Palazo Blanco",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 28.00,
+        tallas: ["S", "M", "L"],
+        img: "PLM/PLZ-P02.jpeg"
+    },
+    {
+        id: 124,
+        nombre: "Short Deportivo",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 28.00,
+        tallas: ["S", "M", "L"],
+        img: "SHTS/SHTS-S01.jpeg"
+    },
+    {
+        id: 125,
+        nombre: "Short Cargo",
+        genero: "Mujer",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 30.00,
+        tallas: ["S", "M", "L"],
+        img: "SHTS/SHTS-S02.jpeg"
+    },
+    {
+        id: 126,
+        nombre: "Short Wafle",
+        genero: "Hombre",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 28.00,
+        tallas: ["S", "M", "L"],
+        img: "SHTS/SHTS-S03.jpeg"
+    },
+    {
+        id: 127,
+        nombre: "Short Floreado",
+        genero: "Hombre",
+        categoria: "Ropa",
+        marca: "CJ",
+        precio: 30.00,
+        tallas: ["S", "M", "L"],
+        img: "SHTS/SHTS-S04.jpeg"
+    },
 ];
