@@ -1,13 +1,10 @@
 $(document).ready(function() {
-    
-    // CONFIGURACIÓN INICIAL
-    // Asegúrate de que esta URL sea la correcta de tu proyecto en GitHub
+
     const BASE_URL = "https://santosbaylin.github.io/"; 
     const TELEFONO_VENTAS = "51924178267";
     
     let fGen = "Todos", fCat = "Todas", fMarca = "Todas";
 
-    // Cargar marcas dinámicamente desde el archivo data.js
     function cargarMarcas() {
         const marcas = [...new Set(PRODUCTOS_DB.map(p => p.marca))];
         // Limpiamos el select excepto la opción por defecto
@@ -27,9 +24,7 @@ $(document).ready(function() {
             return mGen && mCat && mMarca;
         });
 
-        // Generar las tarjetas de productos
         filtrados.forEach(p => {
-            // CONSTRUCCIÓN DE LA URL DE LA IMAGEN PARA GITHUB
             const urlImagenCompleta = BASE_URL + p.img;
 
             const msj = `¡Hola! Me interesa este producto de tu catálogo:\n\n` +
@@ -62,13 +57,11 @@ $(document).ready(function() {
         });
     }
 
-    // Evento para el Lightbox (Zoom de imagen)
     $(document).on('click', '.btn-zoom', function() {
         $('#lightboxImage').attr('src', $(this).data('img'));
         $('#lightboxModal').modal('show');
     });
 
-    // Filtros por género (Botones)
     $('.filter-gen').click(function() {
         $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
         $(this).removeClass('btn-white').addClass('btn-dark text-white');
@@ -76,14 +69,12 @@ $(document).ready(function() {
         render();
     });
 
-    // Filtros por Categoría y Marca (Selects)
     $('#select-cat, #select-marca').change(function() {
         fCat = $('#select-cat').val();
         fMarca = $('#select-marca').val();
         render();
     });
 
-    // Inicialización
     cargarMarcas();
     render();
 });
