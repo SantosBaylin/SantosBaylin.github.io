@@ -1,10 +1,17 @@
 $(document).ready(function() {
     
+    // CONFIGURACIÓN INICIAL
+    // Asegúrate de que esta URL sea la correcta de tu proyecto en GitHub
+    const BASE_URL = "https://santosbaylin.github.io/"; 
     const TELEFONO_VENTAS = "51924178267";
+    
     let fGen = "Todos", fCat = "Todas", fMarca = "Todas";
 
+    // Cargar marcas dinámicamente desde el archivo data.js
     function cargarMarcas() {
         const marcas = [...new Set(PRODUCTOS_DB.map(p => p.marca))];
+        // Limpiamos el select excepto la opción por defecto
+        $('#select-marca').html('<option value="Todas">Todas las Marcas</option>');
         marcas.forEach(m => $('#select-marca').append(`<option value="${m}">${m}</option>`));
     }
 
@@ -12,6 +19,7 @@ $(document).ready(function() {
         const contenedor = $('#contenedor-tienda');
         contenedor.empty();
 
+        // Lógica de filtrado
         const filtrados = PRODUCTOS_DB.filter(p => {
             const mGen = (fGen === "Todos" || p.genero === fGen);
             const mCat = (fCat === "Todas" || p.categoria === fCat);
@@ -19,22 +27,26 @@ $(document).ready(function() {
             return mGen && mCat && mMarca;
         });
 
+        // Generar las tarjetas de productos
         filtrados.forEach(p => {
+            // CONSTRUCCIÓN DE LA URL DE LA IMAGEN PARA GITHUB
+            const urlImagenCompleta = BASE_URL + p.img;
+
             const msj = `¡Hola! Me interesa este producto de tu catálogo:\n\n` +
                         `📌 *Modelo:* ${p.nombre}\n` +
                         `🏷️ *Marca:* ${p.marca}\n` +
                         `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
                         `📏 *Tallas:* ${p.tallas.join(', ')}\n\n` +
-                        `Ver imagen: ${p.img}`;
+                        `🔗 *Ver producto:* ${urlImagenCompleta}`;
 
             const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
 
             contenedor.append(`
                 <div class="col-12 col-md-6 col-lg-4 animate__animated animate__fadeIn">
                     <div class="product-card shadow-sm">
-                        <div class="image-wrapper btn-zoom" data-img="${p.img}">
+                        <div class="image-wrapper btn-zoom" data-img="${urlImagenCompleta}">
                             <span class="cat-badge">${p.categoria}</span>
-                            <img src="${p.img}" alt="${p.nombre}">
+                            <img src="${urlImagenCompleta}" alt="${p.nombre}">
                         </div>
                         <div class="p-4 text-center">
                             <small class="text-muted fw-bold text-uppercase">${p.marca} · ${p.genero}</small>
@@ -50,11 +62,13 @@ $(document).ready(function() {
         });
     }
 
+    // Evento para el Lightbox (Zoom de imagen)
     $(document).on('click', '.btn-zoom', function() {
         $('#lightboxImage').attr('src', $(this).data('img'));
         $('#lightboxModal').modal('show');
     });
 
+    // Filtros por género (Botones)
     $('.filter-gen').click(function() {
         $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
         $(this).removeClass('btn-white').addClass('btn-dark text-white');
@@ -62,12 +76,14 @@ $(document).ready(function() {
         render();
     });
 
+    // Filtros por Categoría y Marca (Selects)
     $('#select-cat, #select-marca').change(function() {
         fCat = $('#select-cat').val();
         fMarca = $('#select-marca').val();
         render();
     });
 
+    // Inicialización
     cargarMarcas();
     render();
 });
