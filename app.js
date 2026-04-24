@@ -6,9 +6,21 @@ $(document).ready(function() {
     let fGen = "Todos", fCat = "Todas", fMarca = "Todas";
 
     function cargarMarcas() {
-        const marcas = [...new Set(PRODUCTOS_DB.map(p => p.marca))];
-        $('#select-marca').html('<option value="Todas">Todas las Marcas</option>');
-        marcas.forEach(m => $('#select-marca').append(`<option value="${m}">${m}</option>`));
+        const productosFiltradosPorCat = PRODUCTOS_DB.filter(p => 
+            fCat === "Todas" || p.categoria === fCat
+        );
+
+        const marcas = [...new Set(
+            productosFiltradosPorCat
+                .map(p => p.marca)
+                .filter(m => m && m !== "Sin Marca")
+        )];
+        const selectMarca = $('#select-marca');
+        selectMarca.html('<option value="Todas">Todas las Marcas</option>');
+        
+        marcas.sort().forEach(m => {
+            selectMarca.append(`<option value="${m}">${m}</option>`);
+        });
     }
 
     function render() {
@@ -24,17 +36,30 @@ $(document).ready(function() {
 
         filtrados.forEach(p => {
             const urlImagenCompleta = BASE_URL + p.img;
-            
-            const tallasTexto = p.tallas.join(', ');
+            const esModa = (p.categoria === "Ropa");
+            const tallasTexto = esModa ? p.tallas.join(', ') : "";
 
-            const msj = `¡Hola! Me interesa este producto de tu catálogo:\n\n` +
-                        `📌 *Modelo:* ${p.nombre}\n` +
-                        `🏷️ *Marca:* ${p.marca}\n` +
-                        `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
-                        `📏 *Tallas disponibles:* ${tallasTexto}\n\n` +
-                        `🔗 *Ver imagen:* ${urlImagenCompleta}`;
+            // MENSAJE DE WHATSAPP (Ahora incluye el ID del producto)
+            let msj = `¡Hola! Me interesa este producto:\n\n` +
+                      `🆔 *Código:* ${p.id}\n` + // <--- ID AGREGADO
+                      `📌 *Modelo:* ${p.nombre}\n` +
+                      `🏷️ *Marca:* ${p.marca}\n` +
+                      `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
+                      `👤 *Género:* ${p.genero}\n`;
+            
+            if (esModa) msj += `📏 *Tallas:* ${tallasTexto}\n`;
+            msj += `\n🔗 *Ver imagen:* ${urlImagenCompleta}`;
 
             const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
+
+            const htmlInfoAdicional = esModa ? `
+                <div class="mb-3">
+                    <small class="text-secondary d-block mt-1">Tallas disponibles:</small>
+                    <span class="badge bg-light text-dark border">${tallasTexto}</span>
+                </div>` : `
+                <div class="mb-3">
+                    <p class="small text-muted mt-2"><i class="fas fa-check-circle text-success"></i> Producto en Stock</p>
+                </div>`;
 
             contenedor.append(`
                 <div class="col-12 col-md-6 col-lg-4 animate__animated animate__fadeIn">
@@ -48,14 +73,11 @@ $(document).ready(function() {
                             <h5 class="fw-800 my-2">${p.nombre}</h5>
                             <p class="h4 fw-800 text-primary mb-1">s/${p.precio.toFixed(2)}</p>
                             
-                            <div class="mb-3">
-                                <small class="text-secondary d-block mt-2">Tallas disponibles:</small>
-                                <span class="badge bg-light text-dark border">${tallasTexto}</span>
-                            </div>
+                            ${htmlInfoAdicional}
 
                             <div class="mt-auto">
                                 <a href="${linkWA}" target="_blank" class="btn-whatsapp w-100">
-                                    <i class="fab fa-whatsapp me-2"></i> Consultar por WhatsApp
+                                    <i class="fab fa-whatsapp me-2"></i> Consultar Disponibilidad
                                 </a>
                             </div>
                         </div>
@@ -65,10 +87,17 @@ $(document).ready(function() {
         });
     }
 
-    $(document).on('click', '.btn-zoom', function() {
-        const imgSrc = $(this).data('img');
-        $('#lightboxImage').attr('src', imgSrc);
-        $('#lightboxModal').modal('show');
+    // EVENTOS
+    $('#select-cat').change(function() {
+        fCat = $(this).val();
+        fMarca = "Todas"; 
+        cargarMarcas();
+        render();
+    });
+
+    $('#select-marca').change(function() {
+        fMarca = $(this).val();
+        render();
     });
 
     $('.filter-gen').click(function() {
@@ -78,10 +107,9 @@ $(document).ready(function() {
         render();
     });
 
-    $('#select-cat, #select-marca').change(function() {
-        fCat = $('#select-cat').val();
-        fMarca = $('#select-marca').val();
-        render();
+    $(document).on('click', '.btn-zoom', function() {
+        $('#lightboxImage').attr('src', $(this).data('img'));
+        $('#lightboxModal').modal('show');
     });
 
     cargarMarcas();
