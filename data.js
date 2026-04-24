@@ -1151,7 +1151,7 @@ const PRODUCTOS_DB = [
     },
     {
         id: 116,
-        nombre: "Conjuntos",
+        nombre: "Pantalon + Polo",
         genero: "Mujer",
         categoria: "Ropa",
         marca: "CJ",
@@ -1161,41 +1161,41 @@ const PRODUCTOS_DB = [
     },
     {
         id: 117,
-        nombre: "Conjuntos",
+        nombre: "Short + Viviri",
         genero: "Mujer",
         categoria: "Ropa",
         marca: "CJ",
-        precio: 48.00,
+        precio: 38.00,
         tallas: ["S", "M", "L", "XL"],
         img: "CJ/CJ-C02.jpeg"
     },
     {
         id: 118,
-        nombre: "Conjuntos",
+        nombre: "Short + Polo",
         genero: "Mujer",
         categoria: "Ropa",
         marca: "CJ",
-        precio: 48.00,
+        precio: 38.00,
         tallas: ["S", "M", "L", "XL"],
         img: "CJ/CJ-C03.jpeg"
     },
     {
         id: 119,
-        nombre: "Conjuntos",
+        nombre: "Short + Polera",
         genero: "Mujer",
         categoria: "Ropa",
         marca: "CJ",
-        precio: 48.00,
+        precio: 45.00,
         tallas: ["S", "M", "L", "XL"],
         img: "CJ/CJ-C04.jpeg"
     },
     {
         id: 120,
-        nombre: "Conjuntos",
+        nombre: "Pantalon + Viviri",
         genero: "Mujer",
         categoria: "Ropa",
         marca: "CJ",
-        precio: 48.00,
+        precio: 46.00,
         tallas: ["S", "M", "L", "XL"],
         img: "CJ/CJ-C05.jpeg"
     },
