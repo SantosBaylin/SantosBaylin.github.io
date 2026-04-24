@@ -3,7 +3,7 @@ $(document).ready(function() {
     const BASE_URL = "https://santosbaylin.github.io/"; 
     const TELEFONO_VENTAS = "51924178267";
     
-    let fGen = "Todos", fCat = "Todas", fMarca = "Todas";
+    let fGen = "Todos", fCat = "Todas", fMarca = "Todas", fBusqueda = "";
 
     function cargarMarcas() {
         const productosFiltradosPorCat = PRODUCTOS_DB.filter(p => 
@@ -15,6 +15,7 @@ $(document).ready(function() {
                 .map(p => p.marca)
                 .filter(m => m && m !== "Sin Marca")
         )];
+        
         const selectMarca = $('#select-marca');
         selectMarca.html('<option value="Todas">Todas las Marcas</option>');
         
@@ -31,34 +32,48 @@ $(document).ready(function() {
             const mGen = (fGen === "Todos" || p.genero === fGen);
             const mCat = (fCat === "Todas" || p.categoria === fCat);
             const mMarca = (fMarca === "Todas" || p.marca === fMarca);
-            return mGen && mCat && mMarca;
+            const mBusqueda = p.nombre.toLowerCase().includes(fBusqueda.toLowerCase()) || 
+                              p.marca.toLowerCase().includes(fBusqueda.toLowerCase()) ||
+                              p.id.toString().includes(fBusqueda);
+            
+            return mGen && mCat && mMarca && mBusqueda;
         });
+
+        if (filtrados.length === 0) {
+            contenedor.append('<div class="col-12 text-center my-5"><h5 class="text-muted">No se encontraron productos</h5></div>');
+            return;
+        }
 
         filtrados.forEach(p => {
             const urlImagenCompleta = BASE_URL + p.img;
-            const esModa = (p.categoria === "Ropa");
-            const tallasTexto = esModa ? p.tallas.join(', ') : "";
+            const tieneTallas = p.tallas && p.tallas.length > 0;
+            const tallasTexto = tieneTallas ? p.tallas.join(', ') : "Única";
 
-            // MENSAJE DE WHATSAPP (Ahora incluye el ID del producto)
+            // MENSAJE DE WHATSAPP
             let msj = `¡Hola! Me interesa este producto:\n\n` +
-                      `🆔 *Código:* ${p.id}\n` + // <--- ID AGREGADO
+                      `🆔 *Código:* ${p.id}\n` +
                       `📌 *Modelo:* ${p.nombre}\n` +
                       `🏷️ *Marca:* ${p.marca}\n` +
                       `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
                       `👤 *Género:* ${p.genero}\n`;
             
-            if (esModa) msj += `📏 *Tallas:* ${tallasTexto}\n`;
+            if (tieneTallas) msj += `📏 *Talla:* ${tallasTexto}\n`;
             msj += `\n🔗 *Ver imagen:* ${urlImagenCompleta}`;
 
             const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
 
-            const htmlInfoAdicional = esModa ? `
+            // UI DE TALLAS (Se crean badges individuales)
+            const htmlTallas = tieneTallas ? `
                 <div class="mb-3">
-                    <small class="text-secondary d-block mt-1">Tallas disponibles:</small>
-                    <span class="badge bg-light text-dark border">${tallasTexto}</span>
+                    <small class="text-secondary d-block mb-1">Tallas disponibles:</small>
+                    <div class="d-flex flex-wrap justify-content-center gap-1">
+                        ${p.tallas.map(t => `<span class="badge border text-dark bg-light">${t}</span>`).join('')}
+                    </div>
                 </div>` : `
                 <div class="mb-3">
-                    <p class="small text-muted mt-2"><i class="fas fa-check-circle text-success"></i> Producto en Stock</p>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                        <i class="fas fa-check-circle me-1"></i> Stock Disponible
+                    </span>
                 </div>`;
 
             contenedor.append(`
@@ -70,14 +85,14 @@ $(document).ready(function() {
                         </div>
                         <div class="p-4 text-center d-flex flex-column">
                             <small class="text-muted fw-bold text-uppercase">${p.marca} · ${p.genero}</small>
-                            <h5 class="fw-800 my-2">${p.nombre}</h5>
-                            <p class="h4 fw-800 text-primary mb-1">s/${p.precio.toFixed(2)}</p>
+                            <h5 class="fw-bold my-2">${p.nombre}</h5>
+                            <p class="h4 fw-800 text-primary mb-3">s/${p.precio.toFixed(2)}</p>
                             
-                            ${htmlInfoAdicional}
+                            ${htmlTallas}
 
                             <div class="mt-auto">
                                 <a href="${linkWA}" target="_blank" class="btn-whatsapp w-100">
-                                    <i class="fab fa-whatsapp me-2"></i> Consultar Disponibilidad
+                                    <i class="fab fa-whatsapp me-2"></i> Consultar por WhatsApp
                                 </a>
                             </div>
                         </div>
@@ -88,6 +103,11 @@ $(document).ready(function() {
     }
 
     // EVENTOS
+    $('#input-busqueda').on('input', function() {
+        fBusqueda = $(this).val();
+        render();
+    });
+
     $('#select-cat').change(function() {
         fCat = $(this).val();
         fMarca = "Todas"; 
