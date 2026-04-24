@@ -1,6 +1,6 @@
 $(document).ready(function() {
     
-    const TELEFONO_VENTAS = "51924178267"; // <--- PON TU NÚMERO AQUÍ
+    const TELEFONO_VENTAS = "51924178267";
     let fGen = "Todos", fCat = "Todas", fMarca = "Todas";
 
     function cargarMarcas() {
@@ -20,14 +20,12 @@ $(document).ready(function() {
         });
 
         filtrados.forEach(p => {
-            // MENSAJE CON URL DE IMAGEN PARA VISTA PREVIA
-            const msj = `¡Hola! Me interesa este producto:\n\n` +
-                        `🖼️ *Foto:* ${p.img}\n` +
+            const msj = `¡Hola! Me interesa este producto de tu catálogo:\n\n` +
                         `📌 *Modelo:* ${p.nombre}\n` +
                         `🏷️ *Marca:* ${p.marca}\n` +
-                        `💰 *Precio:* $${p.precio.toFixed(2)}\n` +
+                        `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
                         `📏 *Tallas:* ${p.tallas.join(', ')}\n\n` +
-                        `¿Tienen stock disponible?`;
+                        `Ver imagen: ${p.img}`;
 
             const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
 
@@ -52,13 +50,11 @@ $(document).ready(function() {
         });
     }
 
-    // Zoom de imagen
     $(document).on('click', '.btn-zoom', function() {
         $('#lightboxImage').attr('src', $(this).data('img'));
         $('#lightboxModal').modal('show');
     });
 
-    // Filtros
     $('.filter-gen').click(function() {
         $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
         $(this).removeClass('btn-white').addClass('btn-dark text-white');
