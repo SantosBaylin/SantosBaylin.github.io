@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    
     const BASE_URL = "https://santosbaylin.github.io/"; 
     const TELEFONO_VENTAS = "51924178267";
     
@@ -7,7 +7,6 @@ $(document).ready(function() {
 
     function cargarMarcas() {
         const marcas = [...new Set(PRODUCTOS_DB.map(p => p.marca))];
-        // Limpiamos el select excepto la opción por defecto
         $('#select-marca').html('<option value="Todas">Todas las Marcas</option>');
         marcas.forEach(m => $('#select-marca').append(`<option value="${m}">${m}</option>`));
     }
@@ -16,7 +15,6 @@ $(document).ready(function() {
         const contenedor = $('#contenedor-tienda');
         contenedor.empty();
 
-        // Lógica de filtrado
         const filtrados = PRODUCTOS_DB.filter(p => {
             const mGen = (fGen === "Todos" || p.genero === fGen);
             const mCat = (fCat === "Todas" || p.categoria === fCat);
@@ -26,13 +24,15 @@ $(document).ready(function() {
 
         filtrados.forEach(p => {
             const urlImagenCompleta = BASE_URL + p.img;
+            
+            const tallasTexto = p.tallas.join(', ');
 
             const msj = `¡Hola! Me interesa este producto de tu catálogo:\n\n` +
                         `📌 *Modelo:* ${p.nombre}\n` +
                         `🏷️ *Marca:* ${p.marca}\n` +
                         `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
-                        `📏 *Tallas:* ${p.tallas.join(', ')}\n\n` +
-                        `🔗 *Ver producto:* ${urlImagenCompleta}`;
+                        `📏 *Tallas disponibles:* ${tallasTexto}\n\n` + 
+                        `🖼️ *Ver imagen:* ${urlImagenCompleta}`;
 
             const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
 
@@ -46,7 +46,8 @@ $(document).ready(function() {
                         <div class="p-4 text-center">
                             <small class="text-muted fw-bold text-uppercase">${p.marca} · ${p.genero}</small>
                             <h5 class="fw-800 my-2">${p.nombre}</h5>
-                            <p class="h4 fw-800 text-primary mb-4">s/${p.precio.toFixed(2)}</p>
+                            <p class="h4 fw-800 text-primary mb-2">s/${p.precio.toFixed(2)}</p>
+                            <p class="text-muted small mb-3">Tallas: ${tallasTexto}</p>
                             <a href="${linkWA}" target="_blank" class="btn-whatsapp">
                                 <i class="fab fa-whatsapp me-2"></i> Consultar Disponibilidad
                             </a>
