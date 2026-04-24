@@ -1299,4 +1299,124 @@ const PRODUCTOS_DB = [
         tallas: ["S", "M", "L"],
         img: "PLM/CHP-P05.jpeg"
     },
+    {
+        id: 131,
+        nombre: "Tomatodo",
+        genero: "Unisex",
+        categoria: "Taperes y Tomatodo",
+        marca: "Sin Marca",
+        precio: 20.00,
+        tallas: [],
+        img: "TDS/TDS-P01.jpeg"
+    },
+    {
+        id: 132,
+        nombre: "Tomatodo",
+        marca: "Sin Marca", 
+        precio: 20.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/TDS-P02.jpeg"
+    },
+    {
+        id: 133,
+        nombre: "Tomatodo",
+        marca: "Sin Marca", 
+        precio: 20.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/TDS-P03.jpeg"
+    },
+    {
+        id: 134,
+        nombre: "Tomatodo",
+        marca: "Sin Marca", 
+        precio: 20.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/TDS-P04.jpeg"
+    },
+    {
+        id: 135,
+        nombre: "Tomatodo",
+        marca: "Sin Marca", 
+        precio: 20.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/TDS-P05.jpeg"
+    },
+    {
+        id: 136,
+        nombre: "Taperes",
+        marca: "Sin Marca", 
+        precio: 30.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/T-P01.jpeg"
+    },
+    {
+        id: 137,
+        nombre: "Taperes",
+        marca: "Sin Marca", 
+        precio: 30.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/T-P02.jpeg"
+    },
+    {
+        id: 138,
+        nombre: "Taperes",
+        marca: "Sin Marca", 
+        precio: 30.00,
+        categoria: "Taperes y Tomatodo",
+        genero: "Unisex",
+        tallas: [],
+        img: "TDS/T-P03.jpeg"
+    },
+    {
+        id: 139,
+        nombre: "Cartuchera",
+        marca: "Sin Marca", 
+        precio: 30.00,
+        categoria: "Cartucheras",
+        genero: "Unisex",
+        tallas: [],
+        img: "CTC/CTC-P01.jpeg"
+    },
+    {
+        id: 140,
+        nombre: "Cartuchera",
+        marca: "Porta", 
+        precio: 30.00,
+        categoria: "Cartucheras",
+        genero: "Unisex",
+        tallas: [],
+        img: "CTC/CTC-P02.jpeg"
+    },
+    {
+        id: 141,
+        nombre: "Cartuchera",
+        marca: "Animados", 
+        precio: 30.00,
+        categoria: "Cartucheras",
+        genero: "Unisex",
+        tallas: [],
+        img: "CTC/CTC-P03.jpeg"
+    },
+    {
+        id: 142,
+        nombre: "Cartuchera",
+        marca: "Animados", 
+        precio: 30.00,
+        categoria: "Cartucheras",
+        genero: "Unisex",
+        tallas: [],
+        img: "CTC/CTC-P04.jpeg"
+    }
 ];
