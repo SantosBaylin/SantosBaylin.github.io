@@ -1418,5 +1418,115 @@ const PRODUCTOS_DB = [
         genero: "Unisex",
         tallas: [],
         img: "CTC/CTC-P04.jpeg"
+    },
+    {
+        id: 143,
+        nombre: "POLERAESSENTIALS",
+        marca: "ESSENTIALS", 
+        precio: 100.00,
+        categoria: "Poleras",
+        genero: "Unisex",
+        tallas: [],
+        img: "ESL/ESL-P01.jpeg"
+    },
+    {
+        id: 144,
+        nombre: "POLERA ESSENTIALS",
+        marca: "ESSENTIALS", 
+        precio: 100.00,
+        categoria: "Poleras",
+        genero: "Unisex",
+        tallas: [],
+        img: "ESL/ESL-P02.jpeg"
+    },
+    {
+        id: 145,
+        nombre: "POLERA ESSENTIALS",
+        marca: "ESSENTIALS", 
+        precio: 100.00,
+        categoria: "Poleras",
+        genero: "Unisex",
+        tallas: [],
+        img: "ESL/ESL-P03.jpeg"
+    },
+    {
+        id: 146,
+        nombre: "POLO LACOSTE",
+        marca: "LACOSTE", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "LCO/LCO-P01.jpeg"
+    },
+    {
+        id: 147,
+        nombre: "POLO",
+        marca: "POLO", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "PL/PL-P01.jpeg"
+    },
+    {
+        id: 148,
+        nombre: "POLO QUIKSILVER",
+        marca: "QUIKSILVER", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "QS/QS-P01.jpeg"
+    },
+    {
+        id: 149,
+        nombre: "POLO QUIKSILVER",
+        marca: "QUIKSILVER", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "QS/QS-P02.jpeg"
+    },
+    {
+        id: 150,
+        nombre: "POLO VOLCOM",
+        marca: "VOLCOM", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "VOL/VOL-P01.jpeg"
+    },
+    {
+        id: 151,
+        nombre: "POLO VOLCOM",
+        marca: "VOLCOM", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "VOL/VOL-P02.jpeg"
+    },
+    {
+        id: 152,
+        nombre: "POLO COLUMBIA",
+        marca: "COLUMBIA", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "CLB/CLB-P01.jpeg"
+    },
+    {
+        id: 153,
+        nombre: "POLO COLUMBIA",
+        marca: "COLUMBIA", 
+        precio: 28.00,
+        categoria: "Polos",
+        genero: "Hombre",
+        tallas: [],
+        img: "CLB/CLB-P02.jpeg"
     }
 ];
