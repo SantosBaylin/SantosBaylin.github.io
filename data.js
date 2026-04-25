@@ -1422,7 +1422,7 @@ const PRODUCTOS_DB = [
     {
         id: 143,
         nombre: "POLERAESSENTIALS",
-        marca: "ESSENTIALS", 
+        marca: "Essentials", 
         precio: 100.00,
         categoria: "Poleras",
         genero: "Unisex",
@@ -1432,7 +1432,7 @@ const PRODUCTOS_DB = [
     {
         id: 144,
         nombre: "POLERA ESSENTIALS",
-        marca: "ESSENTIALS", 
+        marca: "Essentials", 
         precio: 100.00,
         categoria: "Poleras",
         genero: "Unisex",
@@ -1442,7 +1442,7 @@ const PRODUCTOS_DB = [
     {
         id: 145,
         nombre: "POLERA ESSENTIALS",
-        marca: "ESSENTIALS", 
+        marca: "Essentials", 
         precio: 100.00,
         categoria: "Poleras",
         genero: "Unisex",
@@ -1452,7 +1452,7 @@ const PRODUCTOS_DB = [
     {
         id: 146,
         nombre: "POLO LACOSTE",
-        marca: "LACOSTE", 
+        marca: "Lacoste", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1462,7 +1462,7 @@ const PRODUCTOS_DB = [
     {
         id: 147,
         nombre: "POLO",
-        marca: "POLO", 
+        marca: "Polo", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1472,7 +1472,7 @@ const PRODUCTOS_DB = [
     {
         id: 148,
         nombre: "POLO QUIKSILVER",
-        marca: "QUIKSILVER", 
+        marca: "Quiksilver", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1482,7 +1482,7 @@ const PRODUCTOS_DB = [
     {
         id: 149,
         nombre: "POLO QUIKSILVER",
-        marca: "QUIKSILVER", 
+        marca: "Quiksilver", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1492,7 +1492,7 @@ const PRODUCTOS_DB = [
     {
         id: 150,
         nombre: "POLO VOLCOM",
-        marca: "VOLCOM", 
+        marca: "Volcom", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1502,7 +1502,7 @@ const PRODUCTOS_DB = [
     {
         id: 151,
         nombre: "POLO VOLCOM",
-        marca: "VOLCOM", 
+        marca: "Volcom", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1512,7 +1512,7 @@ const PRODUCTOS_DB = [
     {
         id: 152,
         nombre: "POLO COLUMBIA",
-        marca: "COLUMBIA", 
+        marca: "Columbia", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
@@ -1522,7 +1522,7 @@ const PRODUCTOS_DB = [
     {
         id: 153,
         nombre: "POLO COLUMBIA",
-        marca: "COLUMBIA", 
+        marca: "Columbia", 
         precio: 28.00,
         categoria: "Polos",
         genero: "Hombre",
