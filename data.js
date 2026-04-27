@@ -1528,5 +1528,85 @@ const PRODUCTOS_DB = [
         genero: "Hombre",
         tallas: [],
         img: "CLB/CLB-P02.jpeg"
+    },
+    {
+        id: 154,
+        nombre: "Gorra Supreme",
+        marca: "Supreme", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P01.jpeg"
+    },
+    {
+        id: 155,
+        nombre: "Gorra Milano",
+        marca: "Milano", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P02.jpeg"
+    },
+    {
+        id: 156,
+        nombre: "Gorra Balenciaga",
+        marca: "Balenciaga", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P03.jpeg"
+    },
+    {
+        id: 157,
+        nombre: "Gorra Lara Piana",
+        marca: "Lara Piana", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P04.jpeg"
+    },
+    {
+        id: 158,
+        nombre: "Gorra Made",
+        marca: "Made", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P05.jpeg"
+    },
+    {
+        id: 159,
+        nombre: "Gorra Amiri",
+        marca: "Amiri", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P06.jpeg"
+    },
+    {
+        id: 160,
+        nombre: "Gorra Guess",
+        marca: "Guess", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P07.jpeg"
+    },
+    {
+        id: 161,
+        nombre: "Gorra Columbia",
+        marca: "Columbia", 
+        precio: 35.00,
+        categoria: "Gorras",
+        genero: "Unisex",
+        tallas: [],
+        img: "GRRS/GRRS-P08.jpeg"
     }
 ];
