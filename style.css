@@ -41,3 +41,74 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8f9fa; color:
 }
 
 .btn-whatsapp:hover { background: #128c7e; color: white; transform: scale(1.02); }
+
+
+.color-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-dot:hover {
+    transform: scale(1.2);
+}
+
+.color-dot.active {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+
+.image-wrapper { position: relative; height: 350px; overflow: hidden; background: #f4f4f4; border-bottom: 1px solid #eee; }
+.main-img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
+
+
+.nav-img {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.8); border: none; border-radius: 50%;
+    width: 34px; height: 34px; z-index: 5; cursor: pointer; transition: 0.2s;
+}
+.nav-img:hover { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.nav-img.prev { left: 8px; }
+.nav-img.next { right: 8px; }
+
+
+.color-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; transition: 0.2s; }
+.color-dot:hover { transform: scale(1.1); }
+.color-dot.active { border-color: #007bff; box-shadow: 0 0 5px rgba(0,123,255,0.4); transform: scale(1.1); }
+
+
+.nav-modal {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    z-index: 2005;
+    transition: 0.3s;
+}
+
+.nav-modal:hover { background: rgba(255, 255, 255, 0.4); }
+.nav-modal.prev { left: -80px; }
+.nav-modal.next { right: -80px; }
+
+
+@media (max-width: 992px) {
+    .nav-modal.prev { left: 10px; }
+    .nav-modal.next { right: 10px; }
+    .nav-modal { width: 45px; height: 45px; font-size: 1.5rem; background: rgba(0,0,0,0.3); }
+}
+
+
+.image-wrapper { position: relative; height: 350px; overflow: hidden; background: #f4f4f4; }
+.main-img { width: 100%; height: 100%; object-fit: cover; }
+.color-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; display: inline-block; }
+.color-dot.active { border-color: #007bff; transform: scale(1.1); }
