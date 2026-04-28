@@ -523,7 +523,7 @@ const PRODUCTOS_DB = [
         genero: "Mujer",
         categoria: "Conjuntos",
         marca: "CJ",
-        precio: 40.00,
+        precio: 45.00,
         tallas: ["S", "M", "L"],
         variantes: [
             {
@@ -936,7 +936,7 @@ const PRODUCTOS_DB = [
         genero: "Mujer",
         categoria: "Vestidos",
         marca: "CJ",
-        precio: 28.00,
+        precio: 48.00,
         tallas: ["S", "M", "L", "XL"],
         img: "VT/VT-V01.jpeg"
     },
