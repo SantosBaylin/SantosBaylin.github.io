@@ -1,100 +1,76 @@
 $(document).ready(function() {
-    
     const BASE_URL = "https://santosbaylin.github.io/"; 
     const TELEFONO_VENTAS = "51924178267";
-    
     let fGen = "Todos", fCat = "Todas", fMarca = "Todas", fBusqueda = "";
 
-    function cargarMarcas() {
-        const productosFiltradosPorCat = PRODUCTOS_DB.filter(p => 
-            fCat === "Todas" || p.categoria === fCat
-        );
+    let productoActivo = null;
+    let colorIdxActivo = 0;
+    let fotoIdxActiva = 0;
 
-        const marcas = [...new Set(
-            productosFiltradosPorCat
-                .map(p => p.marca)
-                .filter(m => m && m !== "Sin Marca")
-        )];
-        
+    function cargarMarcas() {
+        const filtradosContexto = PRODUCTOS_DB.filter(p => {
+            const mGen = (fGen === "Todos" || p.genero === fGen || p.genero === "Todos");
+            const mCat = (fCat === "Todas" || p.categoria === fCat);
+            return mGen && mCat;
+        });
+        const marcas = [...new Set(filtradosContexto.map(p => p.marca).filter(m => m))];
         const selectMarca = $('#select-marca');
         selectMarca.html('<option value="Todas">Todas las Marcas</option>');
-        
-        marcas.sort().forEach(m => {
-            selectMarca.append(`<option value="${m}">${m}</option>`);
-        });
+        marcas.sort().forEach(m => selectMarca.append(`<option value="${m}">${m}</option>`));
+        if (marcas.includes(fMarca)) selectMarca.val(fMarca); else fMarca = "Todas";
     }
 
     function render() {
         const contenedor = $('#contenedor-tienda');
         contenedor.empty();
-
         const filtrados = PRODUCTOS_DB.filter(p => {
-            const mGen = (fGen === "Todos" || p.genero === fGen);
+            const mGen = (fGen === "Todos" || p.genero === fGen || p.genero === "Todos");
             const mCat = (fCat === "Todas" || p.categoria === fCat);
             const mMarca = (fMarca === "Todas" || p.marca === fMarca);
-            const mBusqueda = p.nombre.toLowerCase().includes(fBusqueda.toLowerCase()) || 
-                              p.marca.toLowerCase().includes(fBusqueda.toLowerCase()) ||
-                              p.id.toString().includes(fBusqueda);
-            
+            const mBusqueda = p.nombre.toLowerCase().includes(fBusqueda.toLowerCase()) || p.id.toString().includes(fBusqueda);
             return mGen && mCat && mMarca && mBusqueda;
         });
 
         if (filtrados.length === 0) {
-            contenedor.append('<div class="col-12 text-center my-5"><h5 class="text-muted">No se encontraron productos</h5></div>');
+            contenedor.append('<div class="col-12 text-center my-5 text-muted"><h5>No se encontraron productos</h5></div>');
             return;
         }
 
         filtrados.forEach(p => {
-            const urlImagenCompleta = BASE_URL + p.img;
-            const tieneTallas = p.tallas && p.tallas.length > 0;
-            const tallasTexto = tieneTallas ? p.tallas.join(', ') : "Única";
+            const tieneVariantes = p.variantes && p.variantes.length > 0;
+            let vActiva = tieneVariantes ? p.variantes[0] : null;
+            let imgRuta = vActiva ? (vActiva.imgs ? vActiva.imgs[0] : vActiva.img) : (p.imgs ? p.imgs[0] : p.img);
+            const urlImg = BASE_URL + imgRuta;
 
-            // MENSAJE DE WHATSAPP
-            let msj = `¡Hola! Me interesa este producto:\n\n` +
-                      `🆔 *Código:* ${p.id}\n` +
-                      `📌 *Modelo:* ${p.nombre}\n` +
-                      `🏷️ *Marca:* ${p.marca}\n` +
-                      `💰 *Precio:* s/${p.precio.toFixed(2)}\n` +
-                      `👤 *Género:* ${p.genero}\n`;
-            
-            if (tieneTallas) msj += `📏 *Talla:* ${tallasTexto}\n`;
-            msj += `\n🔗 *Ver imagen:* ${urlImagenCompleta}`;
+            const tieneVariasFotos = (vActiva && vActiva.imgs && vActiva.imgs.length > 1) || (p.imgs && p.imgs.length > 1);
+            const btnFotos = tieneVariasFotos ? `
+                <button class="nav-img prev" data-dir="-1"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-img next" data-dir="1"><i class="fas fa-chevron-right"></i></button>
+            ` : "";
 
-            const linkWA = `https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`;
-
-            // UI DE TALLAS (Se crean badges individuales)
-            const htmlTallas = tieneTallas ? `
-                <div class="mb-3">
-                    <small class="text-secondary d-block mb-1">Tallas disponibles:</small>
-                    <div class="d-flex flex-wrap justify-content-center gap-1">
-                        ${p.tallas.map(t => `<span class="badge border text-dark bg-light">${t}</span>`).join('')}
-                    </div>
-                </div>` : `
-                <div class="mb-3">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle">
-                        <i class="fas fa-check-circle me-1"></i> Stock Disponible
-                    </span>
-                </div>`;
+            let htmlColores = "";
+            if (tieneVariantes && p.variantes.length > 1) {
+                htmlColores = `<div class="d-flex justify-content-center gap-2 mb-3 mt-2">`;
+                p.variantes.forEach((v, i) => {
+                    htmlColores += `<div class="color-dot ${i === 0 ? 'active' : ''}" style="background-color: ${v.hex};" data-color-index="${i}"></div>`;
+                });
+                htmlColores += `</div>`;
+            }
 
             contenedor.append(`
                 <div class="col-12 col-md-6 col-lg-4 animate__animated animate__fadeIn">
-                    <div class="product-card shadow-sm h-100">
-                        <div class="image-wrapper btn-zoom" data-img="${urlImagenCompleta}" style="cursor: pointer;">
+                    <div class="product-card shadow-sm h-100" data-id="${p.id}">
+                        <div class="image-wrapper">
+                            ${btnFotos}
+                            <img src="${urlImg}" class="img-fluid main-img btn-zoom" data-current-img="0">
                             <span class="cat-badge">${p.categoria}</span>
-                            <img src="${urlImagenCompleta}" alt="${p.nombre}" class="img-fluid">
                         </div>
-                        <div class="p-4 text-center d-flex flex-column">
-                            <small class="text-muted fw-bold text-uppercase">${p.marca} · ${p.genero}</small>
-                            <h5 class="fw-bold my-2">${p.nombre}</h5>
+                        <div class="p-4 text-center">
+                            <small class="text-muted fw-bold">${p.marca} · ${p.genero}</small>
+                            <h5 class="fw-bold my-2" style="font-size: 1.1rem;">${p.nombre}</h5>
+                            ${htmlColores}
                             <p class="h4 fw-800 text-primary mb-3">s/${p.precio.toFixed(2)}</p>
-                            
-                            ${htmlTallas}
-
-                            <div class="mt-auto">
-                                <a href="${linkWA}" target="_blank" class="btn-whatsapp w-100">
-                                    <i class="fab fa-whatsapp me-2"></i> Consultar por WhatsApp
-                                </a>
-                            </div>
+                            <button class="btn-whatsapp border-0 btn-pedir"><i class="fab fa-whatsapp me-2"></i> Consultar</button>
                         </div>
                     </div>
                 </div>
@@ -102,34 +78,72 @@ $(document).ready(function() {
         });
     }
 
-    // EVENTOS
-    $('#input-busqueda').on('input', function() {
-        fBusqueda = $(this).val();
-        render();
+    $(document).on('click', '.nav-img', function(e) {
+        e.stopPropagation();
+        const card = $(this).closest('.product-card');
+        const p = PRODUCTOS_DB.find(prod => prod.id == card.data('id'));
+        const colorIdx = card.find('.color-dot.active').data('color-index') || 0;
+        const v = p.variantes ? p.variantes[colorIdx] : p;
+        const listaImgs = v.imgs || p.imgs;
+
+        if (listaImgs && listaImgs.length > 1) {
+            let currentIdx = parseInt(card.find('.main-img').data('current-img'));
+            currentIdx = (currentIdx + $(this).data('dir') + listaImgs.length) % listaImgs.length;
+            card.find('.main-img').attr('src', BASE_URL + listaImgs[currentIdx]).data('current-img', currentIdx);
+        }
     });
 
-    $('#select-cat').change(function() {
-        fCat = $(this).val();
-        fMarca = "Todas"; 
-        cargarMarcas();
-        render();
-    });
-
-    $('#select-marca').change(function() {
-        fMarca = $(this).val();
-        render();
-    });
-
-    $('.filter-gen').click(function() {
-        $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
-        $(this).removeClass('btn-white').addClass('btn-dark text-white');
-        fGen = $(this).data('gen');
-        render();
+    $(document).on('click', '.color-dot', function() {
+        const card = $(this).closest('.product-card');
+        const colorIdx = $(this).data('color-index');
+        const p = PRODUCTOS_DB.find(prod => prod.id == card.data('id'));
+        const v = p.variantes[colorIdx];
+        const imgRuta = v.imgs ? v.imgs[0] : v.img;
+        card.find('.color-dot').removeClass('active');
+        $(this).addClass('active');
+        card.find('.main-img').fadeOut(100, function() {
+            $(this).attr('src', BASE_URL + imgRuta).data('current-img', 0).fadeIn(100);
+        });
     });
 
     $(document).on('click', '.btn-zoom', function() {
-        $('#lightboxImage').attr('src', $(this).data('img'));
+        const card = $(this).closest('.product-card');
+        productoActivo = PRODUCTOS_DB.find(p => p.id == card.data('id'));
+        colorIdxActivo = card.find('.color-dot.active').data('color-index') || 0;
+        fotoIdxActiva = parseInt($(this).data('current-img')) || 0;
+        actualizarModal();
         $('#lightboxModal').modal('show');
+    });
+
+    function actualizarModal() {
+        const v = productoActivo.variantes ? productoActivo.variantes[colorIdxActivo] : productoActivo;
+        const listaImgs = v.imgs || productoActivo.imgs;
+        $('#lightboxImage').attr('src', BASE_URL + (listaImgs ? listaImgs[fotoIdxActiva] : (v.img || productoActivo.img)));
+        $('.nav-modal').toggle(!!(listaImgs && listaImgs.length > 1));
+    }
+
+    $(document).on('click', '.nav-modal', function() {
+        const dir = $(this).hasClass('next') ? 1 : -1;
+        const v = productoActivo.variantes ? productoActivo.variantes[colorIdxActivo] : productoActivo;
+        const listaImgs = v.imgs || productoActivo.imgs;
+        fotoIdxActiva = (fotoIdxActiva + dir + listaImgs.length) % listaImgs.length;
+        actualizarModal();
+    });
+
+    $(document).on('click', '.btn-pedir', function() {
+        const card = $(this).closest('.product-card');
+        const p = PRODUCTOS_DB.find(prod => prod.id == card.data('id'));
+        const colorTxt = card.find('.color-dot.active').length > 0 ? `🎨 *Color:* ${p.variantes[card.find('.color-dot.active').data('color-index')].color}\n` : "";
+        let msj = `¡Hola! Me interesa:\n🆔 *Cod:* ${p.id}\n📌 *Mod:* ${p.nombre}\n${colorTxt}💰 *Precio:* s/${p.precio.toFixed(2)}\n🔗 *Imagen:* ${card.find('.main-img').attr('src')}`;
+        window.open(`https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`, '_blank');
+    });
+
+    $('#select-cat').change(function() { fCat = $(this).val(); fMarca = "Todas"; cargarMarcas(); render(); });
+    $('#select-marca').change(function() { fMarca = $(this).val(); render(); });
+    $('.filter-gen').click(function() {
+        $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
+        $(this).removeClass('btn-white').addClass('btn-dark text-white');
+        fGen = $(this).data('gen'); cargarMarcas(); render();
     });
 
     cargarMarcas();
