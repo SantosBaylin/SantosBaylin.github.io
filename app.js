@@ -48,6 +48,16 @@ $(document).ready(function() {
                 <button class="nav-img next" data-dir="1"><i class="fas fa-chevron-right"></i></button>
             ` : "";
 
+            // --- LÓGICA DE TALLAS ---
+            let htmlTallas = "";
+            if (p.tallas && p.tallas.length > 0) {
+                htmlTallas = `<div class="d-flex justify-content-center flex-wrap gap-1 mb-2">`;
+                p.tallas.forEach(t => {
+                    htmlTallas += `<span class="badge-talla">${t}</span>`;
+                });
+                htmlTallas += `</div>`;
+            }
+
             let htmlColores = "";
             if (tieneVariantes && p.variantes.length > 1) {
                 htmlColores = `<div class="d-flex justify-content-center gap-2 mb-3 mt-2">`;
@@ -68,7 +78,10 @@ $(document).ready(function() {
                         <div class="p-4 text-center">
                             <small class="text-muted fw-bold">${p.marca} · ${p.genero}</small>
                             <h5 class="fw-bold my-2" style="font-size: 1.1rem;">${p.nombre}</h5>
+                            
+                            ${htmlTallas}
                             ${htmlColores}
+                            
                             <p class="h4 fw-800 text-primary mb-3">s/${p.precio.toFixed(2)}</p>
                             <button class="btn-whatsapp border-0 btn-pedir"><i class="fab fa-whatsapp me-2"></i> Consultar</button>
                         </div>
@@ -78,6 +91,7 @@ $(document).ready(function() {
         });
     }
 
+    // --- NAVEGACIÓN Y EVENTOS ---
     $(document).on('click', '.nav-img', function(e) {
         e.stopPropagation();
         const card = $(this).closest('.product-card');
@@ -130,19 +144,30 @@ $(document).ready(function() {
         actualizarModal();
     });
 
+    // --- WHATSAPP CON TALLAS ---
     $(document).on('click', '.btn-pedir', function() {
         const card = $(this).closest('.product-card');
         const p = PRODUCTOS_DB.find(prod => prod.id == card.data('id'));
-        const colorTxt = card.find('.color-dot.active').length > 0 ? `🎨 *Color:* ${p.variantes[card.find('.color-dot.active').data('color-index')].color}\n` : "";
-        let msj = `¡Hola! Me interesa:\n🆔 *Cod:* ${p.id}\n📌 *Mod:* ${p.nombre}\n${colorTxt}💰 *Precio:* s/${p.precio.toFixed(2)}\n🔗 *Imagen:* ${card.find('.main-img').attr('src')}`;
+        
+        const colorTxt = card.find('.color-dot.active').length > 0 
+            ? `🎨 *Color:* ${p.variantes[card.find('.color-dot.active').data('color-index')].color}\n` 
+            : "";
+        
+        const tallasTxt = (p.tallas && p.tallas.length > 0) 
+            ? `📏 *Tallas disp:* ${p.tallas.join(', ')}\n` 
+            : "";
+
+        let msj = `¡Hola! Me interesa:\n🆔 *Cod:* ${p.id}\n📌 *Mod:* ${p.nombre}\n${colorTxt}${tallasTxt}💰 *Precio:* s/${p.precio.toFixed(2)}\n🔗 *Imagen:* ${card.find('.main-img').attr('src')}`;
+        
         window.open(`https://api.whatsapp.com/send?phone=${TELEFONO_VENTAS}&text=${encodeURIComponent(msj)}`, '_blank');
     });
 
     $('#select-cat').change(function() { fCat = $(this).val(); fMarca = "Todas"; cargarMarcas(); render(); });
     $('#select-marca').change(function() { fMarca = $(this).val(); render(); });
+    
     $('.filter-gen').click(function() {
-        $('.filter-gen').removeClass('btn-dark text-white').addClass('btn-white');
-        $(this).removeClass('btn-white').addClass('btn-dark text-white');
+        $('.filter-gen').removeClass('active');
+        $(this).addClass('active');
         fGen = $(this).data('gen'); cargarMarcas(); render();
     });
 
