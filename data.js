@@ -1375,4 +1375,44 @@ const PRODUCTOS_DB = [
             },
         ]
     },
+    {
+        id: 72,
+        nombre: "Vestido",
+        genero: "Mujer",
+        categoria: "Vestidos",
+        marca: "Nike",
+        precio: 48.00,
+        tallas: ["S", "M", "L"],
+        img: "VT/VT-V03.jpeg"
+    },
+    {
+        id: 73,
+        nombre: "Vestido con Mangas",
+        genero: "Mujer",
+        categoria: "Vestidos",
+        marca: "Nike",
+        precio: 50.00,
+        tallas: ["S", "M", "L"],
+        imgs: ["VT/VT-V04.jpeg","VT/VT-VT04.jpeg"]
+    },
+    {
+        id: 74,
+        nombre: "Polo Camisa",
+        genero: "Hombre",
+        categoria: "Polo Camisa",
+        marca: "Polo",
+        precio: 50.00,
+        tallas: ["S", "M", "L", "XL"],
+        imgs: ["PL/PL-P02.jpeg","PL/PL-P03.jpeg"]
+    },
+    {
+        id: 75,
+        nombre: "Polo Camisa",
+        genero: "Hombre",
+        categoria: "Polo Camisa",
+        marca: "Tommy Hilfiger",
+        precio: 50.00,
+        tallas: ["S", "M", "L", "XL"],
+        imgs: ["TH/TH-P01.jpeg","TH/TH-P02.jpeg"]
+    },
 ];
