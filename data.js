@@ -1401,7 +1401,7 @@ const PRODUCTOS_DB = [
         genero: "Hombre",
         categoria: "Polo Camisa",
         marca: "Polo",
-        precio: 50.00,
+        precio: 60.00,
         tallas: ["S", "M", "L", "XL"],
         imgs: ["PL/PL-P02.jpeg","PL/PL-P03.jpeg"]
     },
@@ -1411,7 +1411,7 @@ const PRODUCTOS_DB = [
         genero: "Hombre",
         categoria: "Polo Camisa",
         marca: "Tommy Hilfiger",
-        precio: 50.00,
+        precio: 60.00,
         tallas: ["S", "M", "L", "XL"],
         imgs: ["TH/TH-P01.jpeg","TH/TH-P02.jpeg"]
     },
